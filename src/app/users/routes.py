@@ -27,7 +27,6 @@ def update(id):
         "message": resolve
     }
 
-
 @users.route('/delete/<id>', methods=['DELETE'])
 def delete(id):
     user = User(_users_.find(id))
