@@ -23,4 +23,8 @@ class CreateAccount:
             hashed_password = generate_password_hash(password, method='sha256')
             user_id = create_service.insertOneAccount({'name': name, 'role': role, 'username': username, 'password': hashed_password})
             
-        return jsonify({'user_id': str(user_id)})
+        return {
+            "status": 200,
+            "message": 'Cuenta creada correctamente!',
+            "payload": jsonify({'user_id': str(user_id)})
+        }

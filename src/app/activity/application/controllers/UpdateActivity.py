@@ -17,7 +17,11 @@ class UpdateActivity:
             response = service.update_activity_by_id(filter["id"], payload)
         else:
             response = service.update_activity_by(filter, payload)
-        return response
+        return {
+            "status": 200,
+            "message": 'Actividad actualizada!',
+            "payload": response
+        }
     
     @administrator_required
     def update_many(self, current_user):
@@ -25,4 +29,8 @@ class UpdateActivity:
         filter = request.json["filter"]
         payload = request.json["payload"]
         response = service.update_activity_by(filter, payload)
-        return response
+        return {
+            "status": 200,
+            "message": 'Actividades actualizadas!',
+            "payload": response
+        }

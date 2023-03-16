@@ -1,13 +1,12 @@
-#from app.models.user import User
+from src.app.constants import DATABASE
 from pymongo import MongoClient
 
-URL = "mongodb://localhost:27017"
-
 class ActivityRepository:
-    def __init__(self, MONGO_URI='mongodb://localhost:27017', MONGO_DB="flaskapi"):
-        self.client = MongoClient(MONGO_URI)
-        self.db = self.client[MONGO_DB]
-        self.activity = self.db.activity
+    def __init__(self):
+        DB: DATABASE = DATABASE()
+        self.client = MongoClient(DB.URI)
+        self.db = self.client[DB.NAME]
+        self.activity = self.db[DB.COLLECTIONS.ACTIVITY]
 
     def insert_one(self, data):
         return self.activity.insert_one(data)

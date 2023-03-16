@@ -12,13 +12,21 @@ class DeleteActivity:
     def delete_one(self, current_user):
         service = DeleteOneActivity()
         if "id" in request.json:
-            result = service.delete_activity_by_id(request.json["id"])
+            response = service.delete_activity_by_id(request.json["id"])
         else:
-            result = service.delete_activity_by(request.json)
-        return result
+            response = service.delete_activity_by(request.json)
+        return {
+            "status": 200,
+            "message": 'Actividad eliminada!',
+            "payload": response
+        }
 
     @administrator_required
     def delete_many(self, current_user):
         service = DeleteManyActivity()
-        result = service.delete_activities_by(request.json)
-        return result
+        response = service.delete_activities_by(request.json)
+        return {
+            "status": 200,
+            "message": 'Actividades eliminadas!',
+            "payload": response
+        }

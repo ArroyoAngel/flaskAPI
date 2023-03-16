@@ -20,7 +20,16 @@ class LoginAccount:
                 'my_secret_key', 
                 algorithm='HS256'
             )
-            return jsonify({'token': token})
+            return {
+                "status": 200,
+                "message": 'Login completado!',
+                "payload": jsonify({'token': token})
+            }
         else:
-            return jsonify({'error': 'Authentication failed'})
+            return {
+                "status": 401,
+                "message": 'La contrasena es incorrecta!',
+                "payload": jsonify({'error': 'Authentication failed'})
+            }
+        
 
