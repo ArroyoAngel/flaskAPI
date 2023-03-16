@@ -1,5 +1,6 @@
 from src.app.activity.application.services.InsertOneActivity import InsertOneActivity
 from src.app.activity.application.services.InsertManyActivities import InsertManyActivities
+from src.app.auth.application.controllers._authentication import administrator_required
 from src.app.activity.domain.Activity import Activity
 from flask import Blueprint, request
 
@@ -8,7 +9,8 @@ class CreateActivity:
         controller.add_url_rule('/', methods=['POST'], view_func=self.create_activity)
         controller.add_url_rule('/many', methods=['POST'], view_func=self.create_activity)
     
-    def create_activity(self):
+    @administrator_required
+    def create_activity(self, current_user):
         if isinstance(request.json, dict):
             return self.create_one_activity()
         elif isinstance(request.json, list):

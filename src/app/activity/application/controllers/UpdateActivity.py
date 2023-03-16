@@ -1,5 +1,6 @@
 from src.app.activity.application.services.UpdateOneActivity import UpdateOneActivity
 from src.app.activity.application.services.UpdateManyActivities import UpdateManyActivity
+from src.app.auth.application.controllers._authentication import administrator_required
 from flask import Blueprint, request
 
 class UpdateActivity:
@@ -7,7 +8,8 @@ class UpdateActivity:
         controller.add_url_rule('/', methods=['PUT'], view_func=self.update_one)
         controller.add_url_rule('/many', methods=['PUT'], view_func=self.update_many)
 
-    def update_one(self):
+    @administrator_required
+    def update_one(self, current_user):
         service = UpdateOneActivity()
         filter = request.json["filter"]
         payload = request.json["payload"]
@@ -17,7 +19,8 @@ class UpdateActivity:
             response = service.update_activity_by(filter, payload)
         return response
     
-    def update_many(self):
+    @administrator_required
+    def update_many(self, current_user):
         service = UpdateManyActivity()
         filter = request.json["filter"]
         payload = request.json["payload"]
