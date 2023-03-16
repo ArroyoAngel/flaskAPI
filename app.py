@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_cors import CORS
 from src.app.activity.application.controllers import activity_controller
+from src.app.auth.application.controllers import auth_controller
 from flask_cors import cross_origin
-from flask_bcrypt import Bcrypt
 
 if __name__ == "__main__":""
 
@@ -15,8 +15,8 @@ def cors_headers():
     return 'CORS ENABLED'
 
 app.register_blueprint(activity_controller)
+app.register_blueprint(auth_controller)
 
 CORS(app)
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/flaskapi'
-bcrypt = Bcrypt(app)
 app.run(debug=True, host="0.0.0.0")
