@@ -1,13 +1,10 @@
 #from app.models.user import User
 from pymongo import MongoClient
 
-DB_NAME = "flaskapi"
-USER_DB = "luis"
-USER_PWD = "luis123"
-URL = f"mongodb://{USER_DB}:{USER_PWD}@localhost:27017"
+URL = "mongodb://localhost:27017"
 
 class ActivityRepository:
-    def __init__(self, MONGO_URI=f'{URL}/{DB_NAME}', MONGO_DB="flaskapi"):
+    def __init__(self, MONGO_URI='mongodb://localhost:27017', MONGO_DB="flaskapi"):
         self.client = MongoClient(MONGO_URI)
         self.db = self.client[MONGO_DB]
         self.activity = self.db.activity
