@@ -12,18 +12,15 @@ class CreateAccount:
             create_service = InsertOneAccount()
             get_service = GetAccount()
             
-            # Obtiene los datos del usuario del cuerpo de la solicitud
             name = request.json['name']
+            role = request.json['role']
             username = request.json['username']
             password = request.json['password']
             
-            # Verifica si el correo electrónico ya está registrado
             if get_service.find_one({'username': username}):
                 return jsonify({'error': 'Username already registered'})
             
-            # Cifra la contraseña y guarda los datos del usuario en la base de datos
             hashed_password = generate_password_hash(password, method='sha256')
-            user_id = create_service.insertOneAccount({'name': name, 'username': username, 'password': hashed_password})
+            user_id = create_service.insertOneAccount({'name': name, 'role': role, 'username': username, 'password': hashed_password})
             
-            # Devuelve la respuesta con el ID del usuario registrado
         return jsonify({'user_id': str(user_id)})
