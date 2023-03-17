@@ -1,4 +1,3 @@
-from src.app.activity.domain.ActivityBSON import ActivityBSON
 from src.app.activity.infraestructure.DataBaseAdapter import ActivityRepository
 from bson import ObjectId
 class UpdateOneActivity:

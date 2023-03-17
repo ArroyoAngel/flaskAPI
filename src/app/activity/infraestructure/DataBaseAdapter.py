@@ -16,6 +16,9 @@ class ActivityRepository:
     
     def find(self, filter):
         return self.activity.find(filter)
+
+    def find_one(self, filter):
+        return self.activity.find_one(filter)
     
     def delete_one(self, filter):
         return self.activity.delete_one(filter)

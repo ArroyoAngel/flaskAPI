@@ -1,33 +1,35 @@
-from src.app.activity.domain.ActivityBSON import ActivityBSON
+from src.app.activity.domain.Activity import Activity
 from src.app.activity.infraestructure.DataBaseAdapter import ActivityRepository
-from bson.json_util import _json_convert
 from bson import ObjectId
 
 class GetActivity:
     def __init__(self):
         self.repository = ActivityRepository()
 
-    def getActivities(self, filter={}) -> list[ActivityBSON]:
-        response = _json_convert(self.repository.find(filter))
+    def getActivities(self, filter={}):
+        if filter !=None and "_id" in filter:
+            filter = { "_id": ObjectId(filter["id"]) }
+        response = list(self.repository.find(filter))
         result = []
         for activity in response:
-            result.append(ActivityBSON(activity).toDict())
+            result.append(Activity(activity).toDict())
         return result
     
-    def getById(self, id) -> list[ActivityBSON]:
-        response = _json_convert(self.repository.find({
+    def getById(self, id):
+        response = list(self.repository.find({
             "_id": ObjectId(id)
         }))
-        result = ActivityBSON(response[0]).toDict()
+        activity = response[0]
+        result = Activity(activity).toDict()
         return result
     
-    def filterActivities(self, key, value) -> list[ActivityBSON]:
+    def filterActivities(self, key, value):
         filter = {}
         filter[key] = value
-        response = _json_convert(self.repository.find(filter))
+        response = list(self.repository.find(filter))
         result = []
         for activity in response:
-            result.append(ActivityBSON(activity).toDict())
+            result.append(Activity(activity).toDict())
         
         return result
             
