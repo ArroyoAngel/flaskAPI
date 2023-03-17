@@ -1,3 +1,4 @@
+from src.app.activity.domain.Activity import Activity
 from src.app.activity.infraestructure.DataBaseAdapter import ActivityRepository
 from bson.json_util import _json_convert
 
@@ -5,7 +6,8 @@ class InsertOneActivity:
     def __init__(self):
         self.repository = ActivityRepository()
 
-    def insertOneActivity(self, activity):
+    def insertOneActivity(self, payload):
+        activity = Activity(payload).toBson()
         response = self.repository.insert_one(activity)
         return {
             "acknowledged": response.acknowledged,

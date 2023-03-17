@@ -1,21 +1,21 @@
 from bson import ObjectId
 
-class User:
+class Pond:
     def __init__(self, payload):
         self._id = str(payload["_id"]) if "_id" in payload else None
         self.name = payload["name"]
-        self.phone = payload["phone"]
-        self.credential = payload["credential"]
-        self.role = payload["role"]
-        self.username = payload["username"]
+        self.zone = payload["zone"]
+        self.width = payload["width"]
+        self.height = payload["height"]
+        self.depth = payload["depth"]
     
     def toDict(self):
         response = {
             "name": self.name,
-            "phone": self.phone,
-            "credential": self.credential,
-            "role": self.role,
-            "username": self.username,
+            "zone": self.zone,
+            "width": self.width,
+            "height": self.height,
+            "depth": self.depth,
         }
         if self._id != None:
             response["_id"] = self._id
@@ -24,10 +24,10 @@ class User:
     def toBson(self):
         response = {
             "name": self.name,
-            "phone": self.phone,
-            "credential": self.credential,
-            "role": self.role,
-            "username": self.username,
+            "zone": self.zone,
+            "width": self.width,
+            "height": self.height,
+            "depth": self.depth,
         }
         if self._id != None:
             response["_id"] = ObjectId(self._id)

@@ -1,35 +1,35 @@
-from src.app.user.domain.UserBSON import UserBSON
+from src.app.user.domain.User import User
 from src.app.user.infraestructure.DataBaseAdapter import UserRepository
-from bson.json_util import _json_convert
 from bson import ObjectId
 
 class GetUser:
     def __init__(self):
         self.repository = UserRepository()
 
-    def getUsers(self, filter={}) -> list[UserBSON]:
-        if "id" in filter:
+    def getUsers(self, filter={}):
+        if filter !=None and "id" in filter:
             filter = { "_id": ObjectId(filter["id"]) }
-        response = _json_convert(self.repository.find(filter))
+        response = list(self.repository.find(filter))
         result = []
         for user in response:
-            result.append(UserBSON(user).toDict())
+            result.append(User(user).toDict())
         return result
     
-    def getById(self, id) -> list[UserBSON]:
-        response = _json_convert(self.repository.find({
+    def getById(self, id):
+        response = list(self.repository.find({
             "_id": ObjectId(id)
         }))
-        result = UserBSON(response[0]).toDict()
+        user = response[0]
+        result = User(user).toDict()
         return result
     
-    def filterUsers(self, key, value) -> list[UserBSON]:
+    def filterUsers(self, key, value):
         filter = {}
         filter[key] = value
-        response = _json_convert(self.repository.find(filter))
+        response = list(self.repository.find(filter))
         result = []
         for user in response:
-            result.append(UserBSON(user).toDict())
+            result.append(User(user).toDict())
         
         return result
             

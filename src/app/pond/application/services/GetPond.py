@@ -1,35 +1,35 @@
-from src.app.activity.domain.Activity import Activity
-from src.app.activity.infraestructure.DataBaseAdapter import ActivityRepository
+from src.app.pond.domain.Pond import Pond
+from src.app.pond.infraestructure.DataBaseAdapter import PondRepository
 from bson import ObjectId
 
-class GetActivity:
+class GetPond:
     def __init__(self):
-        self.repository = ActivityRepository()
+        self.repository = PondRepository()
 
-    def getActivities(self, filter={}):
+    def getPonds(self, filter={}):
         if filter !=None and "_id" in filter:
             filter = { "_id": ObjectId(filter["id"]) }
         response = list(self.repository.find(filter))
         result = []
-        for activity in response:
-            result.append(Activity(activity).toDict())
+        for pond in response:
+            result.append(Pond(pond).toDict())
         return result
     
     def getById(self, id):
         response = list(self.repository.find({
             "_id": ObjectId(id)
         }))
-        activity = response[0]
-        result = Activity(activity).toDict()
+        pond = response[0]
+        result = Pond(pond).toDict()
         return result
     
-    def filterActivities(self, key, value):
+    def filterPonds(self, key, value):
         filter = {}
         filter[key] = value
         response = list(self.repository.find(filter))
         result = []
-        for activity in response:
-            result.append(Activity(activity).toDict())
+        for pond in response:
+            result.append(Pond(pond).toDict())
         
         return result
             
