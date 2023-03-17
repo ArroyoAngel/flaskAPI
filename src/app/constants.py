@@ -3,7 +3,7 @@ class COLLECTIONS:
     ACTIVITY = "activity"
     ACCOUNT = "account"
     USER = "user"
-    PRODUCTS = "products"
+    PRODUCT = "product"
     POND = "pond"
 
 class DATABASE:
