@@ -8,7 +8,7 @@ class GetUser:
         self.repository = UserRepository()
 
     def getUsers(self, filter={}) -> list[UserBSON]:
-        if "id" in filter:
+        if filter !=None and "id" in filter:
             filter = { "_id": ObjectId(filter["id"]) }
         response = _json_convert(self.repository.find(filter))
         result = []
