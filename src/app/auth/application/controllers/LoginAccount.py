@@ -13,14 +13,22 @@ class LoginAccount:
         service = FindOneAccount()
         
         user = service.find_one_account({'username': auth.username})
-        
         if user and check_password_hash(user['password'], auth.password):
             token = jwt.encode(
                 {'username': user['username'], 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},
                 'my_secret_key', 
                 algorithm='HS256'
             )
-            return jsonify({'token': token})
+            return jsonify({
+                "status": 200,
+                "message": 'Login completado!',
+                "payload": {'token': token}
+            })
         else:
-            return jsonify({'error': 'Authentication failed'})
+            return jsonify({
+                "status": 401,
+                "message": 'La contrasena es incorrecta!',
+                "payload": {'error': 'Authentication failed'}
+            })
+        
 
